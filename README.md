@@ -101,12 +101,13 @@ node examples/example.js '\\.\COM1'
 
 
 ### Interface options
-| Value | Descripton |
-|---------------------------|------------|
-| `tcp://192.168.0.99:9100` | Network printer with port |
+| Value                     | Descripton                                                                                                                                                       |
+|---------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `tcp://192.168.0.99:9100` | Network printer with port                                                                                                                                        |
 | `printer:auto`            | Auto select raw system printer via [Printer](https://www.npmjs.com/package/printer) or [Electron printer](https://www.npmjs.com/package/electron-printer) module |
-| `printer:My Printer Name` | Select system printer by name via [Printer](https://www.npmjs.com/package/printer) or [Electron printer](https://www.npmjs.com/package/electron-printer) module |
-| `\\.\COM1`                | Print via local port or file |
+| `printer:My Printer Name` | Select system printer by name via [Printer](https://www.npmjs.com/package/printer) or [Electron printer](https://www.npmjs.com/package/electron-printer) module  |
+| `\\.\COM1`                | Print via local port or file                                                                                                                                     |
+| `custom`                  | Uses the given driver                                                                                                                                            |
 
 
 #### System Printer Drivers
@@ -124,7 +125,7 @@ let printer = new ThermalPrinter({
 });
 ```
 
-Use a custom printer driver:
+Use a custom ***printer*** driver:
 ```js
 const ThermalPrinter = require("node-thermal-printer").printer;
 const PrinterTypes = require("node-thermal-printer").types;
@@ -132,6 +133,21 @@ const PrinterTypes = require("node-thermal-printer").types;
 let printer = new ThermalPrinter({
   type: PrinterTypes.EPSON,
   interface: 'printer:My Printer',
+  driver: MyCustomDriver
+});
+
+// you can also set the driver after init:
+printer.setPrinterDriver(MyCustomDriver)
+```
+
+Use a custom driver:
+```js
+const ThermalPrinter = require("node-thermal-printer").printer;
+const PrinterTypes = require("node-thermal-printer").types;
+
+let printer = new ThermalPrinter({
+  type: PrinterTypes.EPSON,
+  interface: 'custom',
   driver: MyCustomDriver
 });
 
